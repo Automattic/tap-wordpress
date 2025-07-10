@@ -41,12 +41,12 @@ A [Singer](https://www.singer.io/) tap for extracting data from WordPress REST A
 
 ## Supported Streams
 
-| Stream | Incremental | Description |
-|--------|------------|-------------|
-| `posts` | ✅ | Blog posts with content, metadata, and relationships |
-| `pages` | ✅ | WordPress pages with hierarchy and content |
-| `comments` | ✅ | Comments on posts and pages with threading |
-| `media` | ✅ | Media library items (images, files, etc.) |
+| Stream | Replication Method | Description |
+|--------|-------------------|-------------|
+| `posts` | Incremental | Blog posts with content, metadata, and relationships |
+| `pages` | Incremental | WordPress pages with hierarchy and content |
+| `comments` | Incremental | Comments on posts and pages with threading |
+| `media` | Incremental | Media library items (images, files, etc.) |
 | `users` | Full Table | User profiles, roles, and capabilities |
 | `categories` | Full Table | Post categories with hierarchical structure |
 | `tags` | Full Table | Post tags and taxonomies |
