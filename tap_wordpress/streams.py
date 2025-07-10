@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, Optional
-
 from singer_sdk import typing as th
 
 from tap_wordpress.client import WordPressStream
@@ -22,30 +20,42 @@ class PostsStream(WordPressStream):
         th.Property("id", th.IntegerType),
         th.Property("date", th.DateTimeType),
         th.Property("date_gmt", th.DateTimeType),
-        th.Property("guid", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-        )),
+        th.Property(
+            "guid",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+            ),
+        ),
         th.Property("modified", th.DateTimeType),
         th.Property("modified_gmt", th.DateTimeType),
         th.Property("slug", th.StringType),
         th.Property("status", th.StringType),
         th.Property("type", th.StringType),
         th.Property("link", th.StringType),
-        th.Property("title", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-        )),
-        th.Property("content", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-            th.Property("protected", th.BooleanType),
-        )),
-        th.Property("excerpt", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-            th.Property("protected", th.BooleanType),
-        )),
+        th.Property(
+            "title",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+            ),
+        ),
+        th.Property(
+            "content",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+                th.Property("protected", th.BooleanType),
+            ),
+        ),
+        th.Property(
+            "excerpt",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+                th.Property("protected", th.BooleanType),
+            ),
+        ),
         th.Property("author", th.IntegerType),
         th.Property("featured_media", th.IntegerType),
         th.Property("comment_status", th.StringType),
@@ -72,30 +82,42 @@ class PagesStream(WordPressStream):
         th.Property("id", th.IntegerType),
         th.Property("date", th.DateTimeType),
         th.Property("date_gmt", th.DateTimeType),
-        th.Property("guid", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-        )),
+        th.Property(
+            "guid",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+            ),
+        ),
         th.Property("modified", th.DateTimeType),
         th.Property("modified_gmt", th.DateTimeType),
         th.Property("slug", th.StringType),
         th.Property("status", th.StringType),
         th.Property("type", th.StringType),
         th.Property("link", th.StringType),
-        th.Property("title", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-        )),
-        th.Property("content", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-            th.Property("protected", th.BooleanType),
-        )),
-        th.Property("excerpt", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-            th.Property("protected", th.BooleanType),
-        )),
+        th.Property(
+            "title",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+            ),
+        ),
+        th.Property(
+            "content",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+                th.Property("protected", th.BooleanType),
+            ),
+        ),
+        th.Property(
+            "excerpt",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+                th.Property("protected", th.BooleanType),
+            ),
+        ),
         th.Property("author", th.IntegerType),
         th.Property("featured_media", th.IntegerType),
         th.Property("parent", th.IntegerType),
@@ -199,10 +221,13 @@ class CommentsStream(WordPressStream):
         th.Property("author_user_agent", th.StringType),
         th.Property("date", th.DateTimeType),
         th.Property("date_gmt", th.DateTimeType),
-        th.Property("content", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-        )),
+        th.Property(
+            "content",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+            ),
+        ),
         th.Property("link", th.StringType),
         th.Property("status", th.StringType),
         th.Property("type", th.StringType),
@@ -224,33 +249,45 @@ class MediaStream(WordPressStream):
         th.Property("id", th.IntegerType),
         th.Property("date", th.DateTimeType),
         th.Property("date_gmt", th.DateTimeType),
-        th.Property("guid", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-        )),
+        th.Property(
+            "guid",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+            ),
+        ),
         th.Property("modified", th.DateTimeType),
         th.Property("modified_gmt", th.DateTimeType),
         th.Property("slug", th.StringType),
         th.Property("status", th.StringType),
         th.Property("type", th.StringType),
         th.Property("link", th.StringType),
-        th.Property("title", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-        )),
+        th.Property(
+            "title",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+            ),
+        ),
         th.Property("author", th.IntegerType),
         th.Property("comment_status", th.StringType),
         th.Property("ping_status", th.StringType),
         th.Property("template", th.StringType),
         th.Property("meta", th.ObjectType()),
-        th.Property("description", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-        )),
-        th.Property("caption", th.ObjectType(
-            th.Property("rendered", th.StringType),
-            th.Property("raw", th.StringType),
-        )),
+        th.Property(
+            "description",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+            ),
+        ),
+        th.Property(
+            "caption",
+            th.ObjectType(
+                th.Property("rendered", th.StringType),
+                th.Property("raw", th.StringType),
+            ),
+        ),
         th.Property("alt_text", th.StringType),
         th.Property("media_type", th.StringType),
         th.Property("mime_type", th.StringType),

@@ -2,7 +2,6 @@
 
 import pytest
 from unittest.mock import Mock, patch
-import requests
 
 from tap_wordpress.streams import (
     PostsStream,
@@ -107,7 +106,7 @@ class TestWordPressStreams:
     def test_get_url_params(self, mock_tap):
         """Test URL parameter generation."""
         stream = PostsStream(mock_tap)
-        with patch.object(stream, 'get_starting_timestamp', return_value=None):
+        with patch.object(stream, "get_starting_timestamp", return_value=None):
             params = stream.get_url_params(context=None, next_page_token=None)
             assert params["per_page"] == 10
             assert "page" not in params
@@ -115,7 +114,7 @@ class TestWordPressStreams:
     def test_get_url_params_with_pagination(self, mock_tap):
         """Test URL parameter generation with pagination."""
         stream = PostsStream(mock_tap)
-        with patch.object(stream, 'get_starting_timestamp', return_value=None):
+        with patch.object(stream, "get_starting_timestamp", return_value=None):
             params = stream.get_url_params(context=None, next_page_token=2)
             assert params["per_page"] == 10
             assert params["page"] == 2
@@ -123,19 +122,19 @@ class TestWordPressStreams:
     def test_get_next_page_token(self, mock_tap):
         """Test next page token generation."""
         stream = PostsStream(mock_tap)
-        
+
         # Mock response with pagination headers
         mock_response = Mock()
         mock_response.headers = {"X-WP-TotalPages": "3"}
-        
+
         # First page
         next_token = stream.get_next_page_token(mock_response, None)
         assert next_token == 2
-        
+
         # Second page
         next_token = stream.get_next_page_token(mock_response, 2)
         assert next_token == 3
-        
+
         # Last page
         next_token = stream.get_next_page_token(mock_response, 3)
         assert next_token is None
@@ -143,11 +142,11 @@ class TestWordPressStreams:
     def test_get_next_page_token_no_header(self, mock_tap):
         """Test next page token generation without pagination header."""
         stream = PostsStream(mock_tap)
-        
+
         # Mock response without pagination headers
         mock_response = Mock()
         mock_response.headers = {}
-        
+
         next_token = stream.get_next_page_token(mock_response, None)
         assert next_token is None
 
@@ -159,21 +158,21 @@ class TestWordPressStreams:
         assert "User-Agent" in headers
         assert "tap-wordpress" in headers["User-Agent"]
 
-    @patch('tap_wordpress.client.extract_jsonpath')
+    @patch("tap_wordpress.client.extract_jsonpath")
     def test_parse_response(self, mock_extract_jsonpath, mock_tap):
         """Test response parsing."""
         stream = PostsStream(mock_tap)
-        
+
         # Mock response
         mock_response = Mock()
         mock_response.json.return_value = [
             {"id": 1, "title": {"rendered": "Test Post"}},
             {"id": 2, "title": {"rendered": "Another Post"}},
         ]
-        
+
         # Mock extract_jsonpath to return the response data
         mock_extract_jsonpath.return_value = mock_response.json()
-        
+
         records = list(stream.parse_response(mock_response))
         assert len(records) == 2
         assert records[0]["id"] == 1

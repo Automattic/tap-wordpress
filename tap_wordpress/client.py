@@ -6,7 +6,6 @@ import requests
 from singer_sdk.helpers.jsonpath import extract_jsonpath
 from singer_sdk.streams import RESTStream
 from typing import Any, Dict, Optional, Iterable
-import logging
 
 
 class WordPressStream(RESTStream):
@@ -18,24 +17,24 @@ class WordPressStream(RESTStream):
         base_url = self.config.get("base_url")
         if not base_url:
             raise ValueError("base_url is required in config")
-        
+
         # Ensure base_url ends with /wp-json/wp/v2/
         if not base_url.endswith("/"):
             base_url += "/"
-        
+
         if "/wp-json/wp/v2/" not in base_url:
             if not base_url.endswith("wp-json/"):
                 base_url += "wp-json/"
             if not base_url.endswith("wp/v2/"):
                 base_url += "wp/v2/"
-        
+
         return base_url
 
     @property
     def http_headers(self) -> dict:
         """Return the http headers needed."""
         headers = {}
-        if hasattr(self, '_tap') and hasattr(self._tap, 'plugin_version'):
+        if hasattr(self, "_tap") and hasattr(self._tap, "plugin_version"):
             headers["User-Agent"] = f"{self.tap_name}/{self._tap.plugin_version}"
         else:
             headers["User-Agent"] = f"{self.tap_name}/0.1.0"
@@ -46,20 +45,20 @@ class WordPressStream(RESTStream):
     ) -> Dict[str, Any]:
         """Return a dictionary of values to be used in URL parameterization."""
         params: dict = {}
-        
+
         # Pagination
         if next_page_token:
             params["page"] = next_page_token
-        
+
         # Per page limit
         params["per_page"] = self.config.get("per_page", 100)
-        
+
         # Date filtering for incremental sync
         if self.replication_key:
             start_date = self.get_starting_timestamp(context)
             if start_date:
                 params["after"] = start_date.isoformat()
-        
+
         return params
 
     def get_next_page_token(
@@ -70,13 +69,13 @@ class WordPressStream(RESTStream):
         total_pages = response.headers.get("X-WP-TotalPages")
         if not total_pages:
             return None
-        
+
         current_page = previous_token or 1
         total_pages = int(total_pages)
-        
+
         if current_page < total_pages:
             return current_page + 1
-        
+
         return None
 
     def prepare_request_payload(
@@ -98,43 +97,48 @@ class WordPressStream(RESTStream):
     def request_records(self, context: Optional[dict]) -> Iterable[dict]:
         """Request records from the REST API."""
         next_page_token: Any = None
-        
+
         while True:
             try:
                 prepared_request = self.prepare_request(
                     context, next_page_token=next_page_token
                 )
-                
+
                 # No authentication needed for public WordPress REST API endpoints
-                
+
                 resp = self._request(prepared_request, context)
-                
+
                 # Check for successful response
                 if resp.status_code >= 400:
                     self.logger.error(
-                        f"HTTP {resp.status_code} error for {self.name} stream: {resp.text}"
+                        f"HTTP {resp.status_code} error for {self.name} stream: "
+                        f"{resp.text}"
                     )
                     if resp.status_code == 401:
-                        raise Exception("Authentication failed. Check username/password or API key.")
+                        raise Exception(
+                            "Authentication failed. Check username/password or API key."
+                        )
                     elif resp.status_code == 403:
                         raise Exception("Access forbidden. Check permissions.")
                     elif resp.status_code == 404:
-                        self.logger.warning(f"Endpoint not found: {prepared_request.url}")
+                        self.logger.warning(
+                            f"Endpoint not found: {prepared_request.url}"
+                        )
                         break
                     else:
                         resp.raise_for_status()
-                
+
                 for row in self.parse_response(resp):
                     yield row
-                
+
                 previous_token = next_page_token
                 next_page_token = self.get_next_page_token(
                     response=resp, previous_token=previous_token
                 )
-                
+
                 if next_page_token is None:
                     break
-                    
+
             except requests.exceptions.RequestException as e:
                 self.logger.error(f"Request failed for {self.name} stream: {e}")
                 raise Exception(f"Failed to fetch data from WordPress API: {e}")
