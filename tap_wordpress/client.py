@@ -18,6 +18,10 @@ class WordPressStream(RESTStream):
         if not base_url:
             raise ValueError("base_url is required in config")
 
+        # Ensure base_url is a string
+        if not isinstance(base_url, str):
+            base_url = str(base_url)
+
         # Ensure base_url ends with /wp-json/wp/v2/
         if not base_url.endswith("/"):
             base_url += "/"
@@ -66,12 +70,15 @@ class WordPressStream(RESTStream):
     ) -> Optional[Any]:
         """Return a token for identifying next page or None if no more pages."""
         # WordPress API uses X-WP-TotalPages header for pagination
-        total_pages = response.headers.get("X-WP-TotalPages")
-        if not total_pages:
+        total_pages_str = response.headers.get("X-WP-TotalPages")
+        if not total_pages_str:
             return None
 
-        current_page = previous_token or 1
-        total_pages = int(total_pages)
+        current_page: int = previous_token or 1
+        if not isinstance(current_page, int):
+            current_page = int(current_page)
+
+        total_pages = int(total_pages_str)
 
         if current_page < total_pages:
             return current_page + 1
