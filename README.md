@@ -1,7 +1,7 @@
 # tap-wordpress
 
-[![CI](https://github.com/your-org/tap-wordpress/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/tap-wordpress/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/your-org/tap-wordpress/branch/main/graph/badge.svg)](https://codecov.io/gh/your-org/tap-wordpress)
+[![CI](https://github.com/Automattic/tap-wordpress/actions/workflows/ci.yml/badge.svg)](https://github.com/Automattic/tap-wordpress/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/Automattic/tap-wordpress/branch/trunk/graph/badge.svg)](https://codecov.io/gh/Automattic/tap-wordpress)
 [![PyPI version](https://badge.fury.io/py/tap-wordpress.svg)](https://badge.fury.io/py/tap-wordpress)
 [![Python versions](https://img.shields.io/pypi/pyversions/tap-wordpress.svg)](https://pypi.org/project/tap-wordpress/)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
