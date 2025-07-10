@@ -1,0 +1,7 @@
+{
+  "_comment": "Sample configuration for tap-wordpress",
+  "base_url": "https://wordpress.org",
+  "per_page": 100,
+  "timeout": 30,
+  "start_date": "2023-01-01T00:00:00Z"
+}

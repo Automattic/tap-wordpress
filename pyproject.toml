@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "tap-wordpress"
+version = "0.1.0"
+description = "Meltano Extractor for WordPress REST API"
+authors = ["Your Name <you@example.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+homepage = "https://github.com/your-org/tap-wordpress"
+repository = "https://github.com/your-org/tap-wordpress"
+documentation = "https://github.com/your-org/tap-wordpress#readme"
+keywords = ["wordpress", "meltano", "singer", "tap", "api", "etl"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Database",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content :: Content Management System",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+packages = [{include = "tap_wordpress"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+singer-sdk = "^0.32.0"
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+black = "^23.7.0"
+flake8 = "^6.0.0"
+mypy = "^1.5.0"
+types-requests = "^2.31.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+tap-wordpress = "tap_wordpress.tap:TapWordPress.cli"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --cov=tap_wordpress --cov-report=term-missing"
+testpaths = ["tests"]

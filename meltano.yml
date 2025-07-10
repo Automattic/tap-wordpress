@@ -1,0 +1,74 @@
+version: 1
+default_environment: dev
+project_id: tap-wordpress
+environments:
+- name: dev
+plugins:
+  extractors:
+  - name: tap-wordpress
+    namespace: tap_wordpress
+    pip_url: -e .
+    capabilities:
+    - about
+    - discover
+    - schema-flattening
+    - state
+    - stream-maps
+    - test
+    settings:
+    - name: base_url
+      label: Base URL
+      kind: string
+      description: WordPress site base URL (e.g., https://example.com)
+      required: true
+    - name: start_date
+      label: Start Date
+      kind: date_iso8601
+      description: Start date for incremental sync
+      required: false
+    - name: per_page
+      label: Per Page
+      kind: integer
+      description: Number of records to fetch per page
+      default: 100
+      required: false
+    - name: timeout
+      label: Timeout
+      kind: integer
+      description: Request timeout in seconds
+      default: 30
+      required: false
+    - name: stream_maps
+      label: Stream Maps
+      kind: object
+      description: Config object for stream maps capability
+      required: false
+    - name: stream_map_config
+      label: Stream Map Config
+      kind: object
+      description: User-defined config values to be used within map expressions
+      required: false
+    - name: flattening_enabled
+      label: Flattening Enabled
+      kind: boolean
+      description: "'True' to enable schema flattening and automatically expand nested properties"
+      required: false
+    - name: flattening_max_depth
+      label: Flattening Max Depth
+      kind: integer
+      description: The max depth to flatten schemas
+      required: false
+    commands:
+      describe: tap-wordpress --about --format=json
+      test: tap-wordpress --test --config=$MELTANO_CONFIG_PATH
+    select_filter:
+    - "*.*"
+    docs: https://github.com/your-org/tap-wordpress
+    repo: https://github.com/your-org/tap-wordpress
+    keywords:
+    - wordpress
+    - api
+    - meltano_sdk
+    - singer
+    maintenance_status: active
+    logo_url: https://wordpress.org/favicon.ico
