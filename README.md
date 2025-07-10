@@ -1,6 +1,7 @@
 # tap-wordpress
 
-[![CI](https://github.com/Automattic/tap-wordpress/actions/workflows/ci.yml/badge.svg)](https://github.com/Automattic/tap-wordpress/actions/workflows/ci.yml)
+[![CI](https://github.com/Automattic/tap-wordpress/actions/workflows/ci.yml/badge.svg?branch=trunk)](https://github.com/Automattic/tap-wordpress/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 A [Singer](https://www.singer.io/) tap for extracting data from WordPress REST API, built with the [Meltano Singer SDK](https://sdk.meltano.com/).
