@@ -5,9 +5,9 @@ description = "Meltano Extractor for WordPress REST API"
 authors = ["Your Name <you@example.com>"]
 license = "Apache-2.0"
 readme = "README.md"
-homepage = "https://github.com/your-org/tap-wordpress"
-repository = "https://github.com/your-org/tap-wordpress"
-documentation = "https://github.com/your-org/tap-wordpress#readme"
+homepage = "https://github.com/Automattic/tap-wordpress"
+repository = "https://github.com/Automattic/tap-wordpress"
+documentation = "https://github.com/Automattic/tap-wordpress#readme"
 keywords = ["wordpress", "meltano", "singer", "tap", "api", "etl"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -15,7 +15,6 @@ classifiers = [
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -27,7 +26,7 @@ classifiers = [
 packages = [{include = "tap_wordpress"}]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 singer-sdk = "^0.32.0"
 requests = "^2.31.0"
 
@@ -48,10 +47,10 @@ tap-wordpress = "tap_wordpress.tap:TapWordPress.cli"
 
 [tool.black]
 line-length = 88
-target-version = ['py38']
+target-version = ['py39', 'py310', 'py311', 'py312']
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
