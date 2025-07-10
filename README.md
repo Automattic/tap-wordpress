@@ -1,9 +1,6 @@
 # tap-wordpress
 
 [![CI](https://github.com/Automattic/tap-wordpress/actions/workflows/ci.yml/badge.svg)](https://github.com/Automattic/tap-wordpress/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/Automattic/tap-wordpress/branch/trunk/graph/badge.svg)](https://codecov.io/gh/Automattic/tap-wordpress)
-[![PyPI version](https://badge.fury.io/py/tap-wordpress.svg)](https://badge.fury.io/py/tap-wordpress)
-[![Python versions](https://img.shields.io/pypi/pyversions/tap-wordpress.svg)](https://pypi.org/project/tap-wordpress/)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 A [Singer](https://www.singer.io/) tap for extracting data from WordPress REST API, built with the [Meltano Singer SDK](https://sdk.meltano.com/).
@@ -12,7 +9,7 @@ A [Singer](https://www.singer.io/) tap for extracting data from WordPress REST A
 
 1. **Install the tap**
    ```bash
-   pipx install tap-wordpress
+   pip install git+https://github.com/Automattic/tap-wordpress.git
    ```
 
 2. **Create a config file**
@@ -50,25 +47,15 @@ A [Singer](https://www.singer.io/) tap for extracting data from WordPress REST A
 | `pages` | ✅ | WordPress pages with hierarchy and content |
 | `comments` | ✅ | Comments on posts and pages with threading |
 | `media` | ✅ | Media library items (images, files, etc.) |
-| `users` | ❌ | User profiles, roles, and capabilities |
-| `categories` | ❌ | Post categories with hierarchical structure |
-| `tags` | ❌ | Post tags and taxonomies |
+| `users` | Full Table | User profiles, roles, and capabilities |
+| `categories` | Full Table | Post categories with hierarchical structure |
+| `tags` | Full Table | Post tags and taxonomies |
 
 ## Installation
 
-### Using pipx (recommended)
-```bash
-pipx install tap-wordpress
-```
-
-### Using pip
-```bash
-pip install tap-wordpress
-```
-
 ### From source
 ```bash
-git clone https://github.com/your-org/tap-wordpress.git
+git clone https://github.com/Automattic/tap-wordpress.git
 cd tap-wordpress
 pip install -e .
 ```
@@ -127,7 +114,7 @@ tap-wordpress --config config.json --catalog catalog.json --state state.json
 1. **Add to your Meltano project**
    ```bash
    cd your-meltano-project
-   meltano add extractor tap-wordpress
+   meltano add extractor tap-wordpress --from-ref=https://github.com/Automattic/tap-wordpress.git
    ```
 
 2. **Configure the tap**
@@ -183,7 +170,7 @@ This tap works with:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/tap-wordpress.git
+git clone https://github.com/Automattic/tap-wordpress.git
 cd tap-wordpress
 
 # Install Poetry if you haven't already
